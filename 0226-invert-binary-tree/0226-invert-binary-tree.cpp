@@ -19,7 +19,7 @@ public:
             root->right = left;
             root->left = invertTree(root->left);
             root->right = invertTree(root->right);
-        }
+        }             
         return root;
     }
 };
