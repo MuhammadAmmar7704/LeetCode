@@ -11,25 +11,22 @@
  */
 class Solution {
 public:
-    int go(TreeNode* tmp, int& m_max) {
-        if(!tmp) {
+    int maxpath;
+    int go(TreeNode* root) {
+        if(!root) {
             return 0;
         }
-        int l = go(tmp->left, m_max);
-        int r = go(tmp->right, m_max);
-        if(l < 0) {
-            l = 0;
-        }
-        if(r < 0) {
-            r = 0;
-        }
-        m_max = max(m_max, l + r + tmp->val);
         
-        return tmp->val + max(l, r);
+        int l = go(root->left);
+        int r = go(root->right);
+        l = max(l, 0);
+        r = max(r, 0);
+        maxpath = max(l + r + root->val, maxpath);
+        return max(l, r) + root->val;
     }
     int maxPathSum(TreeNode* root) {
-        int m_max = root->val;
-        int y = go(root, m_max);
-        return m_max;
+        maxpath = root->val;
+        go(root);
+        return maxpath;
     }
 };
